@@ -1,9 +1,18 @@
-* **Developed by** Damar Nur Ichwan
+
+# Grafana Cloud API
+
+This module is a wrapper for the Grafana Cloud API. It provides a simple way to interact with the Grafana Cloud API. The module is written in TypeScript and uses the Axios library to make HTTP requests.
+
+It's a fork of https://github.com/damar-nur-ichwan/grafana-http-api. I did this because I felt like that repo needed some updates but wasn't sure a PR into that one would be the right move.
 
 # Installation
 1. Run this command in your project
 ```
-npm i grafana-http-api
+npm i grafana-cloud-api
+```
+or 
+```
+yarn add grafana-cloud-api
 ```
 2. Enter and configure the following variables in your ```.env``` file.
 ```
@@ -14,10 +23,11 @@ GRAFANA_TOKEN = <your grafana api key>
 ```
 *Note: If you don't have it already, please create a file called ```.env```.*
 
-3. Don't forget to declare ```grafana-http-api``` module before using it. **Example:**
+3. Don't forget to declare ```grafana-cloud-api``` module before using it. **Example:**
 ```js
-const grafana = require('grafana-http-api')
+import grafana from 'grafana-cloud-api'
 ```
+
 4. All objects in this module use **Promise**. To see the execution result of each object, use the following code:
 ```js
 .then(res=>console.log(res))
@@ -1274,3 +1284,8 @@ grafana.grafana.renew_session_based_on_remember_cookie()
 ```js
 grafana.grafana_health_information()
 ```
+
+
+
+* **Developed by** Damar Nur Ichwan
+* **Upgdated by** glitchwizard
