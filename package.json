@@ -1,6 +1,6 @@
 {
-  "name": "grafana-http-api",
-  "version": "1.0.2",
+  "name": "grafana-cloud-api",
+  "version": "1.0.0",
   "description": "* **Developed by** Damar Nur Ichwan",
   "main": "index.js",
   "scripts": {
