@@ -1,20 +1,24 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+import axios from 'axios';
 
-module.exports = function(uid='',data={
+dotenv.config();
+
+const updateCustomRole = (uid = '', data = {
     version: 0,
     name: "",
     description: "",
-    group:"",
+    group: "",
     displayName: "",
     global: false,
-    permissions: [{ action: "", scope: ""}]
-}){
-    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-    const path = `/api/access-control/roles/${uid}`
-    const url = host + path
+    permissions: [{ action: "", scope: "" }]
+}) => {
+    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+    const path = `/api/access-control/roles/${uid}`;
+    const url = host + path;
 
-    return axios.put(url,data)
-    .then(res=>{return res.data})
-    .catch(res=>{return res.response.data})
-}
+    return axios.put(url, data)
+        .then(res => res.data)
+        .catch(res => res.response.data);
+};
+
+export default updateCustomRole;

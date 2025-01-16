@@ -1,11 +1,15 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+dotenv.config();
+import axios from 'axios';
 
-module.exports = function (data={name:"",email:"",login:"",password:"",OrgId:0}){
-    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-    const path = `/api/admin/users`
-    const url = host + path
-    return axios.post(url, data)
-    .then(res=>{return res.data})
-    .catch(res=>{return res.response.data})
+export default async function global_user() {
+    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+    const path = `/api/users`;
+    const url = host + path;
+    try {
+        const res = await axios.get(url);
+        return res.data;
+    } catch (err) {
+        return err.response?.data;
+    }
 }

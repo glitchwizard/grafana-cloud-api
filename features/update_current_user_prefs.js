@@ -1,17 +1,21 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+import axios from 'axios';
 
-module.exports = function(theme='',homeDashboardId=0,timezone=''){
-    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-    const path = `/api/user/preferences`
-    const url = host + path
+dotenv.config();
+
+const updateCurrentUserPrefs = (theme = '', homeDashboardId = 0, timezone = '') => {
+    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+    const path = `/api/user/preferences`;
+    const url = host + path;
     const config = {
-        headers : {
-            Authorization : `Bearer ${process.env.GRAFANA_TOKEN}`
+        headers: {
+            Authorization: `Bearer ${process.env.GRAFANA_TOKEN}`
         }
-    }
-    const data = {theme,homeDashboardId,timezone}
-    return axios.put(url,data,config)
-    .then(res=>{return res.data})
-    .catch(res=>{return res.response.data})
-}
+    };
+    const data = { theme, homeDashboardId, timezone };
+    return axios.put(url, data, config)
+        .then(res => res.data)
+        .catch(res => res.response.data);
+};
+
+export default updateCurrentUserPrefs;

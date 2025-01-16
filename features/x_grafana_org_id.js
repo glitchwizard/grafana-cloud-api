@@ -1,20 +1,22 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+import axios from 'axios';
 
-module.exports = function (name="",role="",secondsToLive=0){
-    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-    const path = `/api/auth/keys`
-    const url = host + path
- 
+dotenv.config();
+
+const createAuthKey = (name = "", role = "", secondsToLive = 0) => {
+    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+    const path = `/api/auth/keys`;
+    const url = host + path;
     const config = {
-        headers : {
-            Authorization : `Bearer ${process.env.GRAFANA_TOKEN}`
+        headers: {
+            Authorization: `Bearer ${process.env.GRAFANA_TOKEN}`
         }
-    }
+    };
+    const data = { name, role, secondsToLive };
 
-    const data = { name, role, secondsToLive}
+    return axios.post(url, data, config)
+        .then(res => res.data)
+        .catch(res => res.response.data);
+};
 
-    return axios.post(url,data,config)
-    .then(res=>{return res.data})
-    .catch(res=>{return res.response.data})
-}
+export default createAuthKey;

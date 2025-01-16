@@ -1,18 +1,22 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
-const now = Date.now();
+import dotenv from 'dotenv';
+import axios from 'axios';
 
-module.exports = function (){
-    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-    const path = `/api/licensing/token/renew`
-    const url = host + path
+dotenv.config();
+
+const manuallyForceLicenseRefresh = () => {
+    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+    const path = `/api/licensing/token/renew`;
+    const url = host + path;
     const config = {
-        headers : {
-            Authorization : `Bearer ${process.env.GRAFANA_TOKEN}`
+        headers: {
+            Authorization: `Bearer ${process.env.GRAFANA_TOKEN}`
         }
-    }
-    let data = {}
-    return axios.post(url,data,config)
-    .then(res=>{return res.data})
-    .catch(res=>{return res.response.data})
-}
+    };
+    const data = {};
+
+    return axios.post(url, data, config)
+        .then(res => res.data)
+        .catch(res => res.response.data);
+};
+
+export default manuallyForceLicenseRefresh;

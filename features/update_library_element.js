@@ -1,24 +1,21 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+import axios from 'axios';
 
-module.exports = function(uid='',optional={folderId: 0, name: '', kind:'',version:0,uid:'', model:{description:'',type:''}}){
-    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-    const path = `/api/library-elements/${uid}`
-    const url = host + path
+dotenv.config();
+
+const updateLibraryElement = (uid = '', optional = { folderId: 0, name: '', kind: '', version: 0, model: { description: '', type: '' } }) => {
+    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+    const path = `/api/library-elements/${uid}`;
+    const url = host + path;
     const config = {
-        headers : {
-            Authorization : `Bearer ${process.env.GRAFANA_TOKEN}`
+        headers: {
+            Authorization: `Bearer ${process.env.GRAFANA_TOKEN}`
         }
-    }
-    let data = {}
-    if (optional !== {}){
-        const keys = Object.keys(optional)
-        const value = Object.values(optional)
-        for(let i = 0; i < keys.length; i++){
-            data[keys[i]] = value[i]
-        }
-    }
-    return axios.patch(url,data,config)
-    .then(res=>{return res.data})
-    .catch(res=>{return res.response.data})
-}
+    };
+    const data = { ...optional };
+    return axios.patch(url, data, config)
+        .then(res => res.data)
+        .catch(res => res.response.data);
+};
+
+export default updateLibraryElement;
