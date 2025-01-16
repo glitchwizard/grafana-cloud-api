@@ -1,7 +1,8 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+dotenv.config();
+import axios from 'axios';
 
-module.exports = function (org_id=0){
+export default async function switch_org_context(org_id=0){
     const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
     const path = `/api/user/using/${org_id}`
     const url = host + path

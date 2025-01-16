@@ -1,60 +1,65 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
-const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-module.exports = {
-    dashboards: function(){
-        const path = `/api/admin/provisioning/dashboards/reload`
-        const url = host + path
+import dotenv from 'dotenv';
+import axios from 'axios';
+
+dotenv.config();
+const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+
+const reloadProvisioningConfigs = {
+    dashboards: () => {
+        const path = `/api/admin/provisioning/dashboards/reload`;
+        const url = host + path;
         return axios.post(url)
-        .then(res=>{return res.data})
-        .catch(res=>{return res.response.data})
+            .then(res => res.data)
+            .catch(res => res.response.data);
     },
-    datasources: function(){
-        const path = `/api/admin/provisioning/datasources/reload`
-        const url = host + path
+    datasources: () => {
+        const path = `/api/admin/provisioning/datasources/reload`;
+        const url = host + path;
         return axios.post(url)
-        .then(res=>{return res.data})
-        .catch(res=>{return res.response.data})
+            .then(res => res.data)
+            .catch(res => res.response.data);
     },
-    plugins: function(){
-        const path = `/api/admin/provisioning/plugins/reload`
-        const url = host + path
+    plugins: () => {
+        const path = `/api/admin/provisioning/plugins/reload`;
+        const url = host + path;
         return axios.post(url)
-        .then(res=>{return res.data})
-        .catch(res=>{return res.response.data})
+            .then(res => res.data)
+            .catch(res => res.response.data);
     },
-    notifications: function(){
-        const path = `/api/admin/provisioning/notifications/reload`
-        const url = host + path
+    notifications: () => {
+        const path = `/api/admin/provisioning/notifications/reload`;
+        const url = host + path;
         return axios.post(url)
-        .then(res=>{return res.data})
-        .catch(res=>{return res.response.data})
+            .then(res => res.data)
+            .catch(res => res.response.data);
     },
-    access_control: function(){
-        const path = `/api/admin/provisioning/access-control/reload`
-        const url = host + path
+    access_control: () => {
+        const path = `/api/admin/provisioning/access-control/reload`;
+        const url = host + path;
         return axios.post(url)
-        .then(res=>{return res.data})
-        .catch(res=>{return res.response.data})
+            .then(res => res.data)
+            .catch(res => res.response.data);
     },
-    all: async function(){
-        const path = [
+    all: async () => {
+        const paths = [
             `/api/admin/provisioning/dashboards/reload`,
             `/api/admin/provisioning/datasources/reload`,
             `/api/admin/provisioning/plugins/reload`,
             `/api/admin/provisioning/notifications/reload`,
             `/api/admin/provisioning/access-control/reload`,
-        ]
-        let data = []
-        for(let i = 0; i<path.length;i++){
-            const url = host + path[i]
+        ];
+        const data = [];
+        for (const path of paths) {
+            const url = host + path;
             try {
                 const res = await axios.post(url);
                 data.push(res.data);
-            } catch (res_1) {
-                data.push(res_1.response.data);
+            } catch (res) {
+                data.push(res.response.data);
             }
         }
-        return data
+        return data;
     }
-}
+};
+
+export default reloadProvisioningConfigs;

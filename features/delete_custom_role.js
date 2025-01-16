@@ -1,12 +1,14 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+import axios from 'axios';
 
-module.exports = function(uid='',force=false){
-    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-    const path = `/api/access-control/roles/${uid}?force=${force}`
-    const url = host + path
+dotenv.config();
+
+export default (uid = '', force = false) => {
+    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+    const path = `/api/access-control/roles/${uid}?force=${force}`;
+    const url = `${host}${path}`;
 
     return axios.delete(url)
-    .then(res=>{return res.data})
-    .catch(res=>{return res.response.data})
-}
+        .then(res => res.data)
+        .catch(err => err.response.data);
+};

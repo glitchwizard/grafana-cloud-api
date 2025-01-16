@@ -1,7 +1,8 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+dotenv.config();
+import axios from 'axios';
 
-module.exports = function (name="",role="",optional={secondsToLive:0}){
+export default async function create_api_key(name="",role="",optional={secondsToLive:0}){
     const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
     const path = `/api/auth/keys`
     const url = host + path

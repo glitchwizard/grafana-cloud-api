@@ -1,12 +1,12 @@
 {
-  "name": "grafana-http-api",
-  "version": "1.0.2",
-  "description": "* **Developed by** Damar Nur Ichwan",
+  "name": "grafana-cloud-api",
+  "version": "1.0.0",
+  "description": "A simple node js library to interact with Grafana Http Apis with Javascript",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "damar-nur-ichwan",
+  "author": "glitchwizard",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
@@ -17,7 +17,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/damar-nur-ichwan/grafana-http-api.git"
+    "url": "git+https://github.com/glitchwizard/grafana-cloud-api.git"
   },
   "keywords": [
     "grafana",
@@ -27,7 +27,7 @@
     "javascript"
   ],
   "bugs": {
-    "url": "https://github.com/damar-nur-ichwan/grafana-http-api/issues"
+    "url": "https://github.com/glitchwizard/grafana-cloud-api/issues"
   },
-  "homepage": "https://github.com/damar-nur-ichwan/grafana-http-api#readme"
+  "homepage": "https://github.com/glitchwizard/grafana-cloud-api#readme"
 }

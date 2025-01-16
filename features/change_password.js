@@ -1,17 +1,22 @@
-require('dotenv').config()
-const { default: axios } = require("axios");
+import dotenv from 'dotenv';
+dotenv.config();
+import axios from 'axios';
 
-module.exports = function(oldPassword='',newPassword=''){
-    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`
-    const path = `/api/user/password`
-    const url = host + path
+export default async function changePassword(oldPassword = '', newPassword = '') {
+    const host = `http://${process.env.GRAFANA_USERNAME}:${process.env.GRAFANA_PASSWORD}@${process.env.GRAFANA_HOST}`;
+    const path = `/api/user/password`;
+    const url = `${host}${path}`;
     const config = {
-        headers : {
-            Authorization : `Bearer ${process.env.GRAFANA_TOKEN}`
+        headers: {
+            Authorization: `Bearer ${process.env.GRAFANA_TOKEN}`
         }
+    };
+    const data = { oldPassword, newPassword };
+
+    try {
+        const res = await axios.put(url, data, config);
+        return res.data;
+    } catch (res) {
+        return res.response.data;
     }
-    const data = {oldPassword,newPassword}
-    return axios.put(url,data,config)
-    .then(res=>{return res.data})
-    .catch(res=>{return res.response.data})
 }
